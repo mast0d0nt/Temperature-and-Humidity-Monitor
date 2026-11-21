@@ -1,0 +1,8 @@
+# Web framework
+fastapi
+# ASGI server
+uvicorn[standard]
+# Serial communication with Arduino
+pyserial
+# HTML templates
+jinja2
