@@ -20,7 +20,6 @@ class SerialManager:
             with serial.Serial(port=self._port, baudrate=self._baudrate, timeout=self._timeout) as board:
                 print("Reading data from a board...")
                 time.sleep(2)
-                board.reset_input_buffer()
                 while True:
                     line = board.readline().decode(errors="ignore").strip()
 
@@ -51,17 +50,20 @@ class SerialManager:
             print(
                 f"Port {self._port} is either improperly configured or could not be opened!"
             )
+            time.sleep(2)
             raise
 
         except ValueError as exc_value:
             print(
                 f"At least one input parameter is out of range! Detailed exception description:\n{exc_value}"
             )
+            time.sleep(2)
             raise
 
         except KeyboardInterrupt:
             print(
                 "Process execution terminated by a user. Reading process stopped."
             )
+            time.sleep(1)
 
         return records
