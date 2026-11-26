@@ -229,5 +229,8 @@ src/logs/*
 .DS_Store
 Thumbs.db
 
+# Local databases
+measurements.local.sqlite3
+
 # Security archive directory (on early iterations)
 _security/
