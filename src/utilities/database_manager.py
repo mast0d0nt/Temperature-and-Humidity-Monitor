@@ -3,6 +3,7 @@ import sqlite3
 
 from .serial_manager import SerialManager
 from .data_parser import DataParser
+from .data_collector import DataCollector
 
 class DatabaseManager:
     DEFAULT_DB_PATH = pathlib.Path(__file__).resolve().parent.parent / "databases" / "measurements.sqlite3"
@@ -46,5 +47,5 @@ class DatabaseManager:
             print("Database is empty")
         
 
-    def write(self):
+    def write(self, records):
         ...
