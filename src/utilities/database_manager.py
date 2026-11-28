@@ -12,27 +12,25 @@ class DatabaseManager:
         self.initialize()
 
     def initialize(self):
-        cursor = self._connection.cursor()
-        with self._connection:
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS measurements (
-                    uuid TEXT PRIMARY KEY NOT NULL,
-                    timestamp DATETIME NOT NULL,
-                    level VARCHAR(16),
-                    temperature REAL,
-                    humidity REAL,
-                    out_of_range_count INTEGER,
-                    out_of_range_message VARCHAR(64),
-                    error_message VARCHAR(64)
-                )
-            """)
-
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS config (
-                    key TEXT PRIMARY KEY,
-                    value REAL NOT NULL
-                )
-            """)
+        self._connection.execute("""
+            CREATE TABLE IF NOT EXISTS measurements (
+                uuid TEXT PRIMARY KEY NOT NULL,
+                timestamp DATETIME NOT NULL,
+                level VARCHAR(16),
+                temperature REAL,
+                humidity REAL,
+                out_of_range_count INTEGER,
+                out_of_range_message VARCHAR(64),
+                error_message VARCHAR(64)
+            )
+        """)
+        
+        self._connection.execute("""
+            CREATE TABLE IF NOT EXISTS config (
+                key TEXT PRIMARY KEY,
+                value REAL NOT NULL
+            )
+        """)
     
     def update_config(self, config: list[tuple]):
         with self._connection:
@@ -80,9 +78,8 @@ class DatabaseManager:
 
             rows.append(row)
 
-        cursor = self._connection.cursor()
         with self._connection:
-            cursor.executemany("""
+            self._connection.executemany("""
                 INSERT INTO measurements (uuid, timestamp, level, temperature, humidity, out_of_range_count, out_of_range_message, error_message)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """, rows)
