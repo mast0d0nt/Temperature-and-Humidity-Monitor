@@ -1,13 +1,12 @@
 import time
-from .serial_manager import SerialManager
 
 
 class DataParser:
-    def __init__(self, serial_manager: SerialManager):
-        self._serial_manager = serial_manager
+    def __init__(self):
+        pass
 
-    def parse(self):
-        records = self._serial_manager.process_data()
+    @staticmethod
+    def parse(records):
         parsed_records = records
         separator = "|"
         thresholds_config = {}

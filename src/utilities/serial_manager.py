@@ -12,7 +12,7 @@ class SerialManager:
         self._max_number_of_lines = 100
         self._max_empty_lines_in_row = 5
 
-    def process_data(self):
+    def read(self):
         empty_lines_count = 0
         records = []
 
@@ -33,7 +33,7 @@ class SerialManager:
                     empty_lines_count = 0
 
                     record = {
-                        "id": str(uuid.uuid4()),
+                        "uuid": str(uuid.uuid4()),
                         "timestamp": datetime.now(timezone.utc).isoformat(),
                         "raw": line,
                     }
